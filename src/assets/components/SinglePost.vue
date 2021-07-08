@@ -3,8 +3,10 @@
     <h2 class="title"> {{ post.title }} </h2>
     <h5>Imię Nazwisko</h5>
     <p class="contents">
-      {{ post.body }}
-      <button v-if="notLoadedYet">Wczytaj więcej</button>
+      {{ halfText }}
+      <button @click="toggleTextVisible">
+        {{ notLoadedYet ? 'Pokaż więcej' : 'Pokaż mniej'}}
+      </button>
     </p>
   </div>
 </template>
@@ -17,7 +19,21 @@ export default {
   },
   data() {
     return {
-      notLoadedYet: true
+      notLoadedYet: true,
+      body: this.post.body
+    }
+  },
+  methods: {
+    toggleTextVisible() {
+      this.notLoadedYet = !this.notLoadedYet
+    }
+  },
+  computed: {
+    halfText() {
+      if (this.notLoadedYet){
+        return this.body.slice(0, this.body.length / 2);
+      }
+      return this.post.body
     }
   }
 }
@@ -44,10 +60,14 @@ $font-color: #2c3e50
     background-color: transparent
     border: none
     border-bottom: 1px solid $font-color
+    cursor: pointer
 
   p,button
     font-size: 16px
     font-weight: 400
     color: $font-color
+
+  h5,p
+    margin-top: 5px
 
 </style>
