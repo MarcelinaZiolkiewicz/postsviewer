@@ -1,13 +1,18 @@
 <template>
   <div class="post">
-    <h2 class="title"> {{ post.title }} </h2>
-    <h5>Imię Nazwisko</h5>
-    <p class="contents">
-      {{ halfText }}
-      <button @click="toggleTextVisible">
-        {{ notLoadedYet ? 'Pokaż więcej' : 'Pokaż mniej'}}
-      </button>
-    </p>
+    <div class="left">
+      <h2 class="title"> {{ post.title }} </h2>
+      <h5>Imię Nazwisko</h5>
+      <p class="contents">
+        {{ halfText }}
+        <button @click="toggleTextVisible">
+          {{ notLoadedYet ? 'Pokaż więcej' : 'Pokaż mniej'}}
+        </button>
+      </p>
+    </div>
+    <div class="right" @click="deletePost">
+      <div class="trash"></div>
+    </div>
   </div>
 </template>
 
@@ -26,6 +31,9 @@ export default {
   methods: {
     toggleTextVisible() {
       this.notLoadedYet = !this.notLoadedYet
+    },
+    deletePost() {
+      console.log(this.post.id)
     }
   },
   computed: {
@@ -40,17 +48,18 @@ export default {
 </script>
 
 <style scoped lang="sass">
-
-$bg-post: #EAC5D8
-$font-color: #2c3e50
+@import "../sass/_variables.sass"
 
 .post
+  display: flex
+  flex-flow: row nowrap
+  justify-content: space-between
   width: 70vw
-  padding: 20px 30px
   background-color: $bg-post
   margin: 10px 0
   border-radius: 15px
   opacity: .8
+  overflow: hidden
   transition: .3s
 
   &:hover
@@ -69,5 +78,26 @@ $font-color: #2c3e50
 
   h5,p
     margin-top: 5px
+
+  .right
+    width: 10%
+    transition: .3s ease-in
+
+    .trash
+      height: 100%
+      background-image: url("../icons/trash-alt-regular.svg")
+      background-repeat: no-repeat
+      background-position: center
+      background-size: 40px
+      transition: .3s
+
+    &:hover
+      background-color: $bg-delete
+
+      .trash
+        transform: scale(1.1) rotate(10deg)
+
+  .left
+    padding: 20px 30px
 
 </style>

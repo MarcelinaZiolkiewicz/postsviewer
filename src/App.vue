@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="postsAmount">
+      <p>Załadowane posty: {{allPosts.length}}</p>
+    </div>
     <SinglePost
       v-for="post in allPosts"
       :key="post.id"
@@ -31,9 +34,7 @@ export default {
 
 <style lang="sass">
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap')
-
-$bg-top: #DBD8F0
-$font-color: #2c3e50
+@import "./assets/sass/_variables.sass"
 
 *
   margin: 0
@@ -50,5 +51,12 @@ $font-color: #2c3e50
   max-width: 1440px
   margin: 0 auto
 
+  .postsAmount
+    text-align: left
+    padding: 20px 0
+    width: 70vw
+
+    p
+      font-weight: bolder
 
 </style>
