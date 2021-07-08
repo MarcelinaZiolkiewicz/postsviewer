@@ -1,5 +1,13 @@
 # postsviewer
 
+#TODO
+
+- API -  https://jsonplaceholder.typicode.com
+- Post - Tytuł, skrócona treść z możliwością rozwinięcia, personalia autora, usuwanie posta (paginacja bez przeładowania)
+- wyświetlanie 10 postów na stronę
+- sortowanie, filtrowanie i szukanie w liście
+
+
 > A Vue.js project
 
 ## Build Setup
@@ -16,4 +24,4 @@ npm run build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
-"# postsviewer" 
+"# postsviewer"

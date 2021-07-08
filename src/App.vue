@@ -1,16 +1,27 @@
 <template>
   <div id="app">
-
+    <div
+      v-for="post in allPosts"
+      :key="post.id"
+    >
+      <h3>{{ post.title }}</h3>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'app',
-  data () {
-    return {
-
-    }
+  methods: {
+    ...mapActions(["loadPosts"]),
+  },
+  computed: {
+    ...mapGetters(["allPosts"]),
+  },
+  created() {
+    this.loadPosts();
   }
 }
 </script>
