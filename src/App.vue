@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <div
+    <SinglePost
       v-for="post in allPosts"
       :key="post.id"
+      :post="post"
     >
       <h3>{{ post.title }}</h3>
-    </div>
+    </SinglePost>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import SinglePost from "./assets/components/SinglePost";
 
 export default {
   name: 'app',
+  components: {SinglePost},
   methods: {
     ...mapActions(["loadPosts"]),
   },
@@ -27,30 +30,25 @@ export default {
 </script>
 
 <style lang="sass">
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap')
 
-$bg-top: #ddd
+$bg-top: #DBD8F0
+$font-color: #2c3e50
+
+*
+  margin: 0
+  padding: 0
+  font-family: "Montserrat", sans-serif
 
 #app
+  display: flex
+  flex-flow: column wrap
+  justify-content: center
+  align-items: center
   background-color: $bg-top
-  font-family: 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  text-align: center
   color: #2c3e50
-  margin-top: 60px
+  max-width: 1440px
+  margin: 0 auto
 
-  h1, h2
-    font-weight: normal
-
-  ul
-    list-style-type: none
-    padding: 0
-
-  li
-    display: inline-block
-    margin: 0 10px
-
-  a
-    color: #42b983
 
 </style>
