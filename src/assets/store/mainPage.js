@@ -66,10 +66,12 @@ const mutations = {
     state.limit = 10;
     let posts = state.postToSearch;
     let searchValue = state.searchValue;
+    searchValue = searchValue.toLowerCase();
     const found = [];
 
     posts.map(post => {
       let title = post.title;
+      title = title.toLowerCase();
       let isFound = title.search(searchValue);
 
       if (isFound >= 0) {
