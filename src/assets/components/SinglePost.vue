@@ -83,7 +83,7 @@ export default {
     margin-top: 5px
 
   .right
-    width: 12vw
+    width: 15vw
     transition: .3s ease-in
     border-top-right-radius: inherit
     border-bottom-right-radius: inherit
@@ -93,7 +93,7 @@ export default {
       background-image: url("../icons/trash-alt-regular.svg")
       background-repeat: no-repeat
       background-position: center
-      background-size: 40px
+      background-size: 35px
       transition: .3s
 
     &:hover
@@ -104,7 +104,7 @@ export default {
 
   .left
     height: 100%
-    width: 90vw
+    width: 85vw
     padding: 20px 30px
 
 @media screen and (max-width: 1050px)

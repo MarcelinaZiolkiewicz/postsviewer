@@ -55,6 +55,9 @@ div
   justify-content: center
   padding: 20px
 
+  @media (max-width: 768px)
+    width: 100vw
+
   input, button, select
     background-color: transparent
     border: 2px solid $font-color
