@@ -6,19 +6,22 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "PaginationButtons",
   props: {
-    start: Number,
-    limit: Number,
     postsLength: Number
+  },
+  computed: {
+    ...mapGetters(["start", "limit"])
   },
   methods: {
     nextPage() {
-      this.$emit('nextPage')
+      this.$store.commit('pagination', 'next')
     },
     previousPage() {
-      this.$emit('previousPage')
+      this.$store.commit('pagination', 'previous')
     }
   }
 }

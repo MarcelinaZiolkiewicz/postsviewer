@@ -4,20 +4,18 @@
       <p>Załadowane posty: {{allPosts.length}}</p>
       <p>Posty na stronie: {{ allPosts.length > 10 ? "10" : allPosts.length}}</p>
     </div>
+    <SearchBar/>
+     <h2 v-if="allPosts <= 0">Brak postów do wyświetlenia</h2>
     <SinglePost
       v-for="post in allPosts.slice(start, limit)"
       :key="post.id"
       :post="post"
       :author="getAuthor(post.userId, allUsers)"
-    >
-      <h3>{{ post.title }}</h3>
-    </SinglePost>
+    />
     <PaginationButtons
       :start="start"
       :limit="limit"
       :postsLength="allPosts.length"
-      @previousPage="previousPage"
-      @nextPage="nextPage"
     />
   </div>
 </template>
@@ -26,17 +24,13 @@
 import { mapGetters, mapActions } from 'vuex';
 import SinglePost from "../components/SinglePost";
 import PaginationButtons from "../components/PaginationButtons";
+import SearchBar from "../components/SearchBar";
 
 export default {
   name: 'HomePage',
-  components: {PaginationButtons, SinglePost},
-  data() {
-    return{
-      start: 0,
-      limit: 10
-    }},
+  components: {SearchBar, PaginationButtons, SinglePost},
   computed: {
-    ...mapGetters(["allPosts", "allUsers"]),
+    ...mapGetters(["allPosts", "allUsers", "start", "limit"]),
   },
   created() {
     this.loadPosts();
@@ -45,16 +39,11 @@ export default {
   methods: {
     ...mapActions(["loadPosts", "loadUsers", "removePost"]),
     getAuthor(id, users) {
-      const foundIndex = users.findIndex(user => user.id === id);
-      return `${users[foundIndex].name}`
-    },
-    nextPage() {
-      this.start += 10;
-      this.limit += 10;
-    },
-    previousPage() {
-      this.start -= 10;
-      this.limit -= 10;
+      if (users.length > 0) {
+        const foundIndex = users.findIndex(user => user.id === id);
+        let author = users[foundIndex];
+        return author.name
+      }
     }
   }
 }
