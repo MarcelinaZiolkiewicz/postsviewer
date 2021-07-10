@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="left">
-      <h2 class="title"> {{ post.title }} </h2>
+      <h2 class="title"> {{ post.title }} | ID: {{post.id}}</h2>
       <h5> {{ author }} </h5>
       <p class="contents">
         {{ halfText }} {{ notLoadedYet && '...'}}
@@ -10,13 +10,15 @@
         </button>
       </p>
     </div>
-    <div class="right" @click="deletePost">
+    <div class="right" @click="removePost(post.id)">
       <div class="trash"></div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "SinglePost",
   props: {
@@ -30,6 +32,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["removePost"]),
     toggleTextVisible() {
       this.notLoadedYet = !this.notLoadedYet
     },
@@ -60,7 +63,6 @@ export default {
   margin: 10px 0
   border-radius: 15px
   opacity: .8
-  overflow: hidden
   transition: .3s
 
   &:hover
@@ -81,8 +83,10 @@ export default {
     margin-top: 5px
 
   .right
-    width: 10vw
+    width: 12vw
     transition: .3s ease-in
+    border-top-right-radius: inherit
+    border-bottom-right-radius: inherit
 
     .trash
       height: 100%
@@ -99,7 +103,17 @@ export default {
         transform: scale(1.1) rotate(10deg)
 
   .left
+    height: 100%
     width: 90vw
     padding: 20px 30px
+
+@media screen and (max-width: 1050px)
+   .post
+    width: 90vw
+    h2
+      font-size: 18px
+    p, button
+      font-size: 14px
+
 
 </style>

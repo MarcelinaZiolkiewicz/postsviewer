@@ -3,8 +3,6 @@
 #TODO
 
 - API -  https://jsonplaceholder.typicode.com
-- Post - Tytuł, skrócona treść z możliwością rozwinięcia, personalia autora, usuwanie posta (paginacja bez przeładowania)
-- wyświetlanie 10 postów na stronę
 - sortowanie, filtrowanie i szukanie w liście
 
 

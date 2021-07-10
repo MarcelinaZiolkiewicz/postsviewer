@@ -28,13 +28,17 @@ const actions = {
       .catch(err => {
         throw new Error(err)
       })
+  },
+  async removePost({commit}, id) {
+    await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    commit('deletePost', id);
   }
-
 }
 
 const mutations = {
   setPosts: (state, posts) => (state.posts = posts),
-  setUsers: (state, users) => (state.users = users)
+  setUsers: (state, users) => (state.users = users),
+  deletePost: (state, id) => (state.posts = state.posts.filter(post => post.id !== id))
 }
 
 export default {
