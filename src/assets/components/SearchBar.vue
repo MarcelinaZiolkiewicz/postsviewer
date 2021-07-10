@@ -63,7 +63,7 @@ div
     font-size: 16px
     outline: none
     cursor: pointer
-    margin: 0 10px
+    margin: 10px 10px
 
   select
     padding: 4px
