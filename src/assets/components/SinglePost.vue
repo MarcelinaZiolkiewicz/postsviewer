@@ -2,7 +2,7 @@
   <div class="post">
     <div class="left">
       <h2 class="title"> {{ post.title }} </h2>
-      <h5>Imię Nazwisko</h5>
+      <h5> {{ author }} </h5>
       <p class="contents">
         {{ halfText }} {{ notLoadedYet && '...'}}
         <button @click="toggleTextVisible">
@@ -20,7 +20,8 @@
 export default {
   name: "SinglePost",
   props: {
-    post: Object
+    post: Object,
+    author: String
   },
   data() {
     return {

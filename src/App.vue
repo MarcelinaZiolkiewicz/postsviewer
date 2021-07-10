@@ -7,6 +7,7 @@
       v-for="post in allPosts"
       :key="post.id"
       :post="post"
+      :author="getAuthor(post.userId, allUsers)"
     >
       <h3>{{ post.title }}</h3>
     </SinglePost>
@@ -20,14 +21,19 @@ import SinglePost from "./assets/components/SinglePost";
 export default {
   name: 'app',
   components: {SinglePost},
-  methods: {
-    ...mapActions(["loadPosts"]),
-  },
   computed: {
-    ...mapGetters(["allPosts"]),
+    ...mapGetters(["allPosts", "allUsers"]),
   },
   created() {
     this.loadPosts();
+    this.loadUsers();
+  },
+  methods: {
+    ...mapActions(["loadPosts", "loadUsers"]),
+    getAuthor(id, users) {
+      const foundIndex = users.findIndex(user => user.id === id);
+      return `${users[foundIndex].name}`
+    }
   }
 }
 </script>
