@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="left">
-      <h2 class="title"> {{ post.title }} | ID: {{post.id}}</h2>
+      <h2 class="title"> {{ post.title }} </h2>
       <h5> {{ author }} </h5>
       <p class="contents">
         {{ halfText }} {{ notLoadedYet && '...'}}
@@ -110,10 +110,8 @@ export default {
 @media screen and (max-width: 1050px)
    .post
     width: 90vw
-    h2
-      font-size: 18px
     p, button
-      font-size: 14px
+      font-size: 18px
 
 
 </style>
