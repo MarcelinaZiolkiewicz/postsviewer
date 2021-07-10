@@ -4,7 +4,7 @@
       <h2 class="title"> {{ post.title }} </h2>
       <h5>Imię Nazwisko</h5>
       <p class="contents">
-        {{ halfText }}
+        {{ halfText }} {{ notLoadedYet && '...'}}
         <button @click="toggleTextVisible">
           {{ notLoadedYet ? 'Pokaż więcej' : 'Pokaż mniej'}}
         </button>
@@ -39,7 +39,7 @@ export default {
   computed: {
     halfText() {
       if (this.notLoadedYet){
-        return this.body.slice(0, this.body.length / 2);
+        return this.body.slice(0, 60);
       }
       return this.post.body
     }
@@ -80,7 +80,7 @@ export default {
     margin-top: 5px
 
   .right
-    width: 10%
+    width: 10vw
     transition: .3s ease-in
 
     .trash
@@ -98,6 +98,7 @@ export default {
         transform: scale(1.1) rotate(10deg)
 
   .left
+    width: 90vw
     padding: 20px 30px
 
 </style>
