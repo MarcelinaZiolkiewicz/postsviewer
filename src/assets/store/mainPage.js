@@ -6,14 +6,16 @@ const state = {
   users: [],
   searchValue: '',
   limit: 10,
-  start: 0
+  start: 0,
+  alert: false,
 }
 
 const getters = {
   allPosts: state => state.posts,
   allUsers: state => state.users,
   start: state => state.start,
-  limit: state => state.limit
+  limit: state => state.limit,
+  alert: state => state.alert
 }
 
 const actions = {
@@ -61,24 +63,50 @@ const mutations = {
   updateValue (state, value) {
     state.searchValue = value;
   },
-  searchValueInArrays (state) {
+  searchValueInArrays (state, key) {
     state.start = 0;
     state.limit = 10;
+    state.alert = false;
+
     let posts = state.postToSearch;
     let searchValue = state.searchValue;
     searchValue = searchValue.toLowerCase();
+
     const found = [];
 
     posts.map(post => {
       let title = post.title;
       title = title.toLowerCase();
-      let isFound = title.search(searchValue);
+      let body = post.body;
+      body = body.toLowerCase();
 
-      if (isFound >= 0) {
-        found.push(post);
+      let isFoundTitle = title.search(searchValue);
+      let isFoundBody = body.search(searchValue);
+
+      if (key.searchBody && key.searchTitle){
+
+        if (isFoundTitle >= 0 || isFoundBody >= 0) {
+          found.push(post);
+        }
+        state.posts = found;
+
+      } else if (key.searchTitle){
+
+        if (isFoundTitle >= 0) {
+          found.push(post);
+        }
+        state.posts = found;
+
+      } else if (key.searchBody){
+        if (isFoundBody >= 0) {
+          found.push(post);
+        }
+        state.posts = found;
+
+      } else {
+        state.alert = true;
       }
 
-      state.posts = found;
     })
   },
   pagination(state, dir) {

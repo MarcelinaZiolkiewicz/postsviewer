@@ -1,35 +1,54 @@
 <template>
   <div>
-    <input
-      type="text"
-      :value="searchValue"
-      @input="update"
-      placeholder="Szukaj..."
-    >
-    <button @click="sendValue">Zatwierdź</button>
+    <div>
+      <input
+        type="text"
+        :value="searchValue"
+        @input="update"
+        placeholder="Szukaj..."
+      >
+      <button @click="sendValue(data)">Zatwierdź</button>
 
-    <select v-model="sortOptions" @change="setSort(sortOptions)">
-      <option selected disabled value="">Sortuj</option>
-      <option value="titleAsc">Rosnąco po tytule</option>
-      <option value="titleDesc">Malejąco po tytule</option>
-    </select>
+      <label>
+        <p>Tytuły</p>
+        <input type="checkbox" v-model="data.searchTitle">
+      </label>
+      <label>
+        <p>Treść</p>
+        <input type="checkbox" v-model="data.searchBody">
+      </label>
+
+      <select v-model="sortOptions" @change="setSort(sortOptions)">
+        <option selected disabled value="">Sortuj</option>
+        <option value="titleAsc">Rosnąco po tytule</option>
+        <option value="titleDesc">Malejąco po tytule</option>
+      </select>
+    </div>
+    <div v-if="alert" class="alert">
+      <p>Trzeba wybrać opcję przeszukiwania!</p>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: "SearchBar",
   data() {
     return {
       sortOptions: '',
+      data: {
+        searchTitle: true,
+        searchBody: true,
+      }
     }
   },
   computed: {
     ...mapState({
       searchValue: state => state.searchValue
-    })
+    }),
+    ...mapGetters(["alert"])
   },
   methods: {
     setSort (sortOptions) {
@@ -38,8 +57,8 @@ export default {
     update(e) {
       this.$store.commit('updateValue', e.target.value)
     },
-    sendValue() {
-      this.$store.commit('searchValueInArrays')
+    sendValue(key) {
+      this.$store.commit('searchValueInArrays', key);
     }
   }
 }
@@ -47,6 +66,12 @@ export default {
 
 <style scoped lang="sass">
 @import "../sass/_variables.sass"
+
+.alert
+  background-color: $bg-delete
+  font-size: 20px
+  color: white
+  font-weight: bold
 
 div
   width: 70vw
@@ -77,4 +102,11 @@ div
       background-color: $font-color
       color: white
 
+  label
+    padding: 8px 0
+    font-size: 16px
+    p
+      display: inline
+    input
+      display: inline
 </style>
