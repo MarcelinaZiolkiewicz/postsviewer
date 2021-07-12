@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="wrapper">
-      <input
-        type="text"
-        :value="searchValue"
-        @input="update"
-        placeholder="Szukaj..."
-      >
+      <form v-on:submit.prevent="sendValue(data)">
+        <input
+          type="text"
+          :value="searchValue"
+          @input="update"
+          placeholder="Szukaj..."
+        >
+      </form>
       <button @click="sendValue(data)">Zatwierdź</button>
 
       <div class="options">
