@@ -15,7 +15,8 @@ const getters = {
   allUsers: state => state.users,
   start: state => state.start,
   limit: state => state.limit,
-  alert: state => state.alert
+  alert: state => state.alert,
+  searchValue: state => state.searchValue
 }
 
 const actions = {

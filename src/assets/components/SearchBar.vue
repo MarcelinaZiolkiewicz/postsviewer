@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="wrapper">
       <input
         type="text"
         :value="searchValue"
@@ -9,14 +9,16 @@
       >
       <button @click="sendValue(data)">Zatwierdź</button>
 
-      <label>
-        <p>Tytuły</p>
-        <input type="checkbox" v-model="data.searchTitle">
-      </label>
-      <label>
-        <p>Treść</p>
-        <input type="checkbox" v-model="data.searchBody">
-      </label>
+      <div class="options">
+        <label>
+          <p>Tytuły</p>
+          <input type="checkbox" v-model="data.searchTitle">
+        </label>
+        <label>
+          <p>Treść</p>
+          <input type="checkbox" v-model="data.searchBody">
+        </label>
+      </div>
 
       <select v-model="sortOptions" @change="setSort(sortOptions)">
         <option selected disabled value="">Sortuj</option>
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: "SearchBar",
@@ -45,10 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      searchValue: state => state.searchValue
-    }),
-    ...mapGetters(["alert"])
+    ...mapGetters(["alert", "searchValue"])
   },
   methods: {
     setSort (sortOptions) {
@@ -73,7 +72,7 @@ export default {
   color: white
   font-weight: bold
 
-div
+.wrapper
   width: 70vw
   display: flex
   flex-flow: row wrap
@@ -81,7 +80,7 @@ div
   padding: 20px
 
   @media (max-width: 768px)
-    width: 100vw
+    flex-direction: column
 
   input, button, select
     background-color: transparent
@@ -102,11 +101,13 @@ div
       background-color: $font-color
       color: white
 
-  label
-    padding: 8px 0
-    font-size: 16px
-    p
-      display: inline
-    input
-      display: inline
+  .options
+    text-align: center
+    label
+      padding: 8px 0
+      font-size: 16px
+      p
+        display: inline
+      input
+        display: inline
 </style>
