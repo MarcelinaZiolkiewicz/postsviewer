@@ -3,7 +3,7 @@
 ### [WERSJA LIVE](https://post-viewer-mz.netlify.app)
 
 ### OPIS
-Post Viewer to aplikacja napisana w Vue wykorzystująca API - https://jsonplaceholder.typicode.com. Załadowane posty są wyświetlane po 10 na strone, można przeszukiwać, sortować lub usuwać.
+Post Viewer to aplikacja napisana w Vue wykorzystująca API - https://jsonplaceholder.typicode.com. Załadowane posty są wyświetlane po 10 na strone. Aplikacja ma wbudowaną możliwość przeszukiwanai po tytułach lub treści, można też posty sortować oraz usuwać. 
 
 ### Zależności
 - Vue
