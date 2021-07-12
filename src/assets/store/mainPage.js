@@ -45,6 +45,7 @@ const actions = {
       })
   },
   async removePost({commit}, id) {
+    console.log('id' + id);
     await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
     commit('deletePost', id);
   }
@@ -54,7 +55,10 @@ const mutations = {
   setPosts: (state, posts) => (state.posts = posts),
   setPostsToSearch: (state, posts) => (state.postToSearch = posts),
   setUsers: (state, users) => (state.users = users),
-  deletePost: (state, id) => (state.posts = state.posts.filter(post => post.id !== id)),
+  deletePost(state, id){
+    state.posts = state.posts.filter(post => post.id !== id);
+    state.postToSearch = state.postToSearch.filter(post => post.id !== id);
+  },
   sortByName(state, sortKey) {
     const posts = state.posts;
 
