@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+//sprawdzanie czy wpisana wartość nie jest pusta
+function isEmptyOrSpaces(str){
+  return str === null || str.match(/^ *$/) !== null;
+}
+
 const state = {
   posts: [],
   postToSearch: [],
@@ -65,50 +70,56 @@ const mutations = {
     state.searchValue = value;
   },
   searchValueInArrays (state, key) {
-    state.start = 0;
-    state.limit = 10;
-    state.alert = false;
 
-    let posts = state.postToSearch;
-    let searchValue = state.searchValue;
-    searchValue = searchValue.toLowerCase();
+    if (!isEmptyOrSpaces(state.searchValue)){
+      state.start = 0;
+      state.limit = 10;
+      state.alert = false;
 
-    const found = [];
+      let posts = state.postToSearch;
+      let searchValue = state.searchValue;
+      searchValue = searchValue.toLowerCase();
 
-    posts.map(post => {
-      let title = post.title;
-      title = title.toLowerCase();
-      let body = post.body;
-      body = body.toLowerCase();
+      const found = [];
 
-      let isFoundTitle = title.search(searchValue);
-      let isFoundBody = body.search(searchValue);
+      posts.map(post => {
+        let title = post.title;
+        title = title.toLowerCase();
+        let body = post.body;
+        body = body.toLowerCase();
 
-      if (key.searchBody && key.searchTitle){
+        let isFoundTitle = title.search(searchValue);
+        let isFoundBody = body.search(searchValue);
 
-        if (isFoundTitle >= 0 || isFoundBody >= 0) {
-          found.push(post);
+        if (key.searchBody && key.searchTitle){
+
+          if (isFoundTitle >= 0 || isFoundBody >= 0) {
+            found.push(post);
+          }
+          state.posts = found;
+
+        } else if (key.searchTitle){
+
+          if (isFoundTitle >= 0) {
+            found.push(post);
+          }
+          state.posts = found;
+
+        } else if (key.searchBody){
+          if (isFoundBody >= 0) {
+            found.push(post);
+          }
+          state.posts = found;
+
+        } else {
+          state.alert = true;
         }
-        state.posts = found;
+      })
+    }
+    else {
+      state.alert = true;
+    }
 
-      } else if (key.searchTitle){
-
-        if (isFoundTitle >= 0) {
-          found.push(post);
-        }
-        state.posts = found;
-
-      } else if (key.searchBody){
-        if (isFoundBody >= 0) {
-          found.push(post);
-        }
-        state.posts = found;
-
-      } else {
-        state.alert = true;
-      }
-
-    })
   },
   pagination(state, dir) {
     if (dir === 'next'){

@@ -27,7 +27,7 @@
       </select>
     </div>
     <div v-if="alert" class="alert">
-      <p>Trzeba wybrać opcję przeszukiwania!</p>
+      <p>Brak wpisanej frazy lub odzanczone opcje przeszukiwania</p>
     </div>
   </div>
 </template>
@@ -71,6 +71,8 @@ export default {
   font-size: 20px
   color: white
   font-weight: bold
+  text-align: center
+  padding: 10px
 
 .wrapper
   width: 70vw
